@@ -1,0 +1,111 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+  flex: 1 1 250px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.root h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.resetButton {
+  background: none;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background: #f8f9fa;
+  border-color: #2c5aa0;
+  color: #2c5aa0;
+}
+
+.resetButton:active {
+  transform: scale(0.95);
+}
+
+/* Стили для чекбоксов */
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+
+/* Стили для поля ввода */
+.inputContainer {
+  margin-top: 8px;
+}
+
+/* Стили для ценового слайдера */
+.priceContainer {
+  margin-bottom: 16px;
+}
+
+.priceInputs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.priceInput {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priceInput label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.priceRange {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .root {
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  .root h3 {
+    font-size: 14px;
+  }
+
+  .resetButton {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
