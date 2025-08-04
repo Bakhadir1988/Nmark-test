@@ -9,7 +9,13 @@ async function getCatalog(): Promise<CatalogType | null> {
   }
 
   try {
-    const response = await fetch(url + 'catalog/');
+    const response = await fetch(url + 'catalog/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
     if (!response.ok) {
       throw new Error(`Ошибка запроса: ${response.status}`);

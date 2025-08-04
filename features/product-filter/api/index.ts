@@ -16,6 +16,7 @@ async function getFilterCatalog(
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
       body: JSON.stringify({
         section_id: sectionId,
       }),
