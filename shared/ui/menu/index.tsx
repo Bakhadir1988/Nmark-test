@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 import { MenuSection } from '@/shared/types/menuType';
@@ -23,9 +24,9 @@ export const Menu: React.FC<MenuProps> = ({ sections }) => {
             onMouseEnter={() => setActiveSection(section.item_id)}
             onMouseLeave={() => setActiveSection(null)}
           >
-            <a href={section.url} className={styles.link}>
+            <Link href={section.url} className={styles.link}>
               {section.title}
-            </a>
+            </Link>
 
             {section.sections && section.sections.length > 0 && (
               <div
@@ -37,9 +38,12 @@ export const Menu: React.FC<MenuProps> = ({ sections }) => {
                       key={subSection.item_id}
                       className={styles.dropdown_item}
                     >
-                      <a href={subSection.url} className={styles.dropdown_link}>
+                      <Link
+                        href={subSection.url}
+                        className={styles.dropdown_link}
+                      >
                         {subSection.title}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
