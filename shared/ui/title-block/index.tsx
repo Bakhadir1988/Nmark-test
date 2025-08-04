@@ -11,8 +11,12 @@ export const TitleBlock = ({
 }) => {
   return (
     <section className={styles.root}>
-      <h1>{title}</h1>
-      {description && <p>{description}</p>}
+      <div className="container">
+        <div className={styles.content}>
+          <h1>{title}</h1>
+          {description && <p>{description}</p>}
+        </div>
+      </div>
     </section>
   );
 };

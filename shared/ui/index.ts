@@ -5,6 +5,8 @@ export { PriceSlider } from './price-slider';
 export { TitleBlock } from './title-block';
 export { Breadcrumbs } from './breadcrumbs';
 export type { BreadcrumbItem } from './breadcrumbs';
+export { Menu } from './menu';
+export { Header } from './header';
 export {
   FilterSkeleton,
   FilterListSkeleton,
@@ -14,3 +16,4 @@ export {
   ProductListSkeleton,
   PaginationSkeleton,
 } from './skeleton';
+export { AccordionUi } from './accordion';

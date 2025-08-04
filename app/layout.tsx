@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Link from 'next/link';
 
 import '@/shared/styles/globals.css';
+import { LayoutWidget } from '@/widgets/layout-widget';
+
+// Настройка динамического рендеринга
+export const dynamic = 'force-dynamic';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,25 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header>
-          <ul>
-            <li>
-              <Link href="/">Главная</Link>
-            </li>
-            <li>
-              <Link href="/catalog">Каталог</Link>
-            </li>
-          </ul>
-        </header>
-        <div
-          className="app-content"
-          style={{ maxWidth: '1200px', margin: '0 auto' }}
-        >
-          {children}
-        </div>
-        <footer>Footer</footer>
+        <LayoutWidget>{children}</LayoutWidget>
       </body>
     </html>
   );

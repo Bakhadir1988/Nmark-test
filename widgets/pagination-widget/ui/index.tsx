@@ -29,7 +29,7 @@ export const PaginationWidget: React.FC<PaginationWidgetProps> = ({
   }
 
   return (
-    <div className={styles.container}>
+    <section className={styles.root}>
       {/* Информация о количестве элементов */}
       {totalItems && itemsPerPage && (
         <div className={styles.info}>
@@ -60,6 +60,6 @@ export const PaginationWidget: React.FC<PaginationWidgetProps> = ({
         breakClassName={styles.break}
         breakLinkClassName={styles.breakLink}
       />
-    </div>
+    </section>
   );
 };

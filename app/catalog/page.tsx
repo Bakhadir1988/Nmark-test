@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 
 import getCatalog from '@/shared/api/catalogApi';
-import { Breadcrumbs } from '@/shared/ui';
 
 import { CatalogClient } from './catalog-client';
+
+// Настройка динамического рендеринга
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getCatalog();
@@ -33,18 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function CatalogPage() {
   const data = await getCatalog();
 
-  console.log('data', data);
-
   if (!data) {
     return <div>Ошибка загрузки каталога</div>;
   }
 
   const { items, section, pagi } = data;
 
-  return (
-    <>
-      <Breadcrumbs />
-      <CatalogClient items={items} section={section} pagi={pagi} />
-    </>
-  );
+  return <CatalogClient items={items} section={section} pagi={pagi} />;
 }

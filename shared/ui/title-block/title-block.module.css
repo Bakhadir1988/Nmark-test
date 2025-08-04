@@ -1,6 +1,9 @@
 .root {
+  margin-bottom: 30px;
+}
+
+.content {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 30px;
 }

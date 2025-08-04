@@ -1,1 +1,2 @@
-export { ProductFilter } from "./product-filter/ui";
+export { ProductFilter } from './product-filter/ui';
+export * from './catalog';

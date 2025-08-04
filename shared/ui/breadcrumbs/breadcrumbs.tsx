@@ -15,13 +15,11 @@ export interface BreadcrumbItem {
 interface BreadcrumbsProps {
   items?: BreadcrumbItem[];
   separator?: string;
-  className?: string;
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   items,
   separator = '/',
-  className,
 }) => {
   const pathname = usePathname();
 
@@ -29,36 +27,37 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   const breadcrumbItems = items || generateBreadcrumbsFromPath(pathname);
 
   return (
-    <nav
-      className={`${styles.breadcrumbs} ${className || ''}`}
-      aria-label="Хлебные крошки"
-    >
-      <ol className={styles.breadcrumbList}>
-        {breadcrumbItems.map((item, index) => (
-          <li key={index} className={styles.breadcrumbItem}>
-            {index > 0 && (
-              <span className={styles.separator} aria-hidden="true">
-                {separator}
-              </span>
-            )}
-            {item.href && !item.isActive ? (
-              <Link href={item.href} className={styles.breadcrumbLink}>
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                className={`${styles.breadcrumbText} ${
-                  item.isActive ? styles.active : ''
-                }`}
-                aria-current={item.isActive ? 'page' : undefined}
-              >
-                {item.label}
-              </span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
+    <section className={styles.root}>
+      <div className="container">
+        <nav aria-label="Хлебные крошки">
+          <ol className={styles.list}>
+            {breadcrumbItems.map((item, index) => (
+              <li key={index} className={styles.item}>
+                {index > 0 && (
+                  <span className={styles.separator} aria-hidden="true">
+                    {separator}
+                  </span>
+                )}
+                {item.href && !item.isActive ? (
+                  <Link href={item.href} className={styles.link}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <span
+                    className={`${styles.text} ${
+                      item.isActive ? styles.active : ''
+                    }`}
+                    aria-current={item.isActive ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </div>
+    </section>
   );
 };
 

@@ -51,7 +51,14 @@ type CatalogSection = {
   imgs: string[];
   item_id: string;
   title: string;
+  faq: CatalogSectionFaq[];
   __path: CatalogSectionPath[];
+};
+
+export type CatalogSectionFaq = {
+  item_id: string;
+  title: string;
+  answer: string;
 };
 
 type CatalogSectionPath = {

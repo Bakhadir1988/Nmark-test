@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { BreadcrumbItem, Breadcrumbs } from './breadcrumbs';
+import { Breadcrumbs } from './breadcrumbs';
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: 'UI/Breadcrumbs',
@@ -13,10 +13,6 @@ const meta: Meta<typeof Breadcrumbs> = {
     separator: {
       control: 'text',
       description: 'Разделитель между элементами',
-    },
-    className: {
-      control: 'text',
-      description: 'Дополнительный CSS класс',
     },
   },
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import { ProductCard } from '@/entities';
 import { CatalogItem } from '@/shared/types/catalogType';
 
-import styles from './product-list.module.css';
+import styles from './product-list-widget.module.css';
 
 interface ProductListProps {
   items: CatalogItem[];
@@ -19,10 +19,10 @@ export const ProductListWidget: React.FC<ProductListProps> = ({ items }) => {
   }
 
   return (
-    <div className={styles.root}>
+    <section className={styles.root}>
       {items.map((item) => (
         <ProductCard key={item.item_id} item={item} />
       ))}
-    </div>
+    </section>
   );
 };
