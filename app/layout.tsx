@@ -4,9 +4,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@/shared/styles/globals.css';
 import { LayoutWidget } from '@/widgets/layout-widget';
 
-// Настройка динамического рендеринга
-export const dynamic = 'force-dynamic';
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],

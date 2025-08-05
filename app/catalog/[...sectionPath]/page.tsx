@@ -20,10 +20,22 @@ export default async function CatalogSectionPage({
   const { sectionPath } = await params;
 
   const currentSlug = sectionPath[sectionPath.length - 1];
+  const parentSlug =
+    sectionPath.length > 1 ? sectionPath[sectionPath.length - 2] : undefined;
 
-  const data = await getCatalogBySlug(currentSlug);
-  const topTagSections = await getTopTagSections(currentSlug);
-  const bottomTagSections = await getBottomTagSections(currentSlug);
+  // Логирование для отладки
+  console.log('=== DEBUG ===');
+  console.log('sectionPath:', sectionPath);
+  console.log('currentSlug:', currentSlug);
+  console.log('parentSlug:', parentSlug);
+  console.log('Full path as slug:', sectionPath.join('/'));
+
+  // Выполняем все запросы параллельно для ускорения
+  const [data, topTagSections, bottomTagSections] = await Promise.all([
+    getCatalogBySlug(currentSlug, parentSlug),
+    getTopTagSections(currentSlug),
+    getBottomTagSections(currentSlug),
+  ]);
 
   if (!data) {
     notFound();

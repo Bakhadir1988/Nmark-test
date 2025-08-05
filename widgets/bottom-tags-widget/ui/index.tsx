@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 import { Section } from '@/shared/types/sectionType';
@@ -23,9 +24,9 @@ export const BottomTagsWidget: React.FC<BottomTagsWidgetProps> = ({
     <div className={styles.container}>
       <div className={styles.tags}>
         {bottomTagSections.map((section) => (
-          <a key={section.item_id} href={section.url} className={styles.tag}>
+          <Link key={section.item_id} href={section.url} className={styles.tag}>
             {section.title}
-          </a>
+          </Link>
         ))}
       </div>
     </div>
