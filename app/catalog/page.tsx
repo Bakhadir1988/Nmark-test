@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import getCatalog from '@/shared/api/catalogApi';
+import { getCatalog } from '@/shared/api/catalogApi';
 
 import { CatalogClient } from './catalog-client';
-
-// Настройка динамического рендеринга
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getCatalog();
@@ -36,7 +34,7 @@ export default async function CatalogPage() {
   const data = await getCatalog();
 
   if (!data) {
-    return <div>Ошибка загрузки каталога</div>;
+    notFound();
   }
 
   const { items, section, pagi } = data;

@@ -9,6 +9,7 @@ import {
   CatalogSectionFaq,
 } from '@/shared/types/catalogType';
 import {
+  Breadcrumbs,
   PaginationSkeleton,
   ProductListSkeleton,
   TitleBlock,
@@ -22,7 +23,12 @@ import {
 
 interface CatalogClientProps {
   items: CatalogItem[];
-  section: { title: string; item_id: string; faq: CatalogSectionFaq[] };
+  section: {
+    title: string;
+    item_id: string;
+    faq: CatalogSectionFaq[];
+    __path?: { item_id: string; title: string; url: string }[];
+  };
   pagi: CatalogPagination;
 }
 
@@ -41,16 +47,23 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
     handleFilterChange,
   } = useCatalog(initialItems, initialPagi, section.item_id);
 
-  console.log('section.faq', section.faq);
+  console.log('filters', filters);
 
   return (
     <main className="container">
+      <Breadcrumbs path={section.__path} />
       <TitleBlock title={section.title} />
-      <FilterWidget
-        sectionId={section.item_id}
-        onFilterChange={handleFilterChange}
-        currentFilters={filters}
-      />
+
+      {/* Показываем фильтр только если есть товары */}
+      {items.length > 0 && (
+        <FilterWidget
+          sectionId={section.item_id}
+          onFilterChange={handleFilterChange}
+          currentFilters={filters}
+          hasItems={items.length > 0}
+        />
+      )}
+
       {loading ? (
         <>
           <ProductListSkeleton count={items.length > 0 ? items.length : 12} />
