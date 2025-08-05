@@ -2,6 +2,10 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getCatalog } from '@/shared/api/catalogApi';
+import {
+  getBottomTagSections,
+  getTopTagSections,
+} from '@/shared/api/sectionsApi';
 
 import { CatalogClient } from './catalog-client';
 
@@ -32,6 +36,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CatalogPage() {
   const data = await getCatalog();
+  const topTagSections = await getTopTagSections();
+  const bottomTagSections = await getBottomTagSections();
+
+  console.log('topTagSections', topTagSections);
+  console.log('bottomTagSections', bottomTagSections);
 
   if (!data) {
     notFound();
@@ -39,5 +48,13 @@ export default async function CatalogPage() {
 
   const { items, section, pagi } = data;
 
-  return <CatalogClient items={items} section={section} pagi={pagi} />;
+  return (
+    <CatalogClient
+      items={items}
+      section={section}
+      pagi={pagi}
+      topTagSections={topTagSections}
+      bottomTagSections={bottomTagSections}
+    />
+  );
 }

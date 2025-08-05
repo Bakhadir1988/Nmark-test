@@ -38,11 +38,24 @@ function findSectionBySlug(sections: Section[], slug: string): Section | null {
   return null;
 }
 
-// Основная функция для получения item_id по slug
+// Функция для получения sect_id по slug
 export async function getSectionIdBySlug(slug: string): Promise<string | null> {
   const sections = await fetchSections();
+  console.log('Поиск раздела для slug:', slug);
+  console.log(
+    'Доступные разделы:',
+    sections.map((s) => ({ title: s.title, manual_url: s.manual_url })),
+  );
+
   const section = findSectionBySlug(sections, slug);
-  return section?.item_id || null;
+
+  if (!section) {
+    console.error('Раздел не найден для slug:', slug);
+    return null;
+  }
+
+  console.log('Найден раздел:', section.title, 'с ID:', section.item_id);
+  return section.item_id;
 }
 
 // Функция для получения всех разделов
@@ -90,4 +103,90 @@ function findSectionById(sections: Section[], itemId: string): Section | null {
     }
   }
   return null;
+}
+
+// Функция для получения разделов с верхними тегами
+export async function getTopTagSections(slug?: string): Promise<Section[]> {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) {
+    console.error('NEXT_PUBLIC_API_URL не определен');
+    return [];
+  }
+
+  try {
+    let sectId = 'e8748942'; // дефолтный ID
+
+    if (slug) {
+      const foundSectId = await getSectionIdBySlug(slug);
+      if (foundSectId) {
+        sectId = foundSectId;
+      } else {
+        console.warn('Используем дефолтный sect_id для slug:', slug);
+      }
+    }
+
+    const formData = new FormData();
+    formData.append('comp', 'catsections');
+    formData.append('sect_id', sectId);
+    formData.append('section_type', 'Верхний тег');
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      console.error('Ошибка при получении верхних тегов:', response.status);
+      return [];
+    }
+
+    const data = await response.json();
+    return data.sections || [];
+  } catch (error) {
+    console.error('Ошибка при получении верхних тегов:', error);
+    return [];
+  }
+}
+
+// Функция для получения разделов с нижними тегами
+export async function getBottomTagSections(slug?: string): Promise<Section[]> {
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) {
+    console.error('NEXT_PUBLIC_API_URL не определен');
+    return [];
+  }
+
+  try {
+    let sectId = 'e8748942'; // дефолтный ID
+
+    if (slug) {
+      const foundSectId = await getSectionIdBySlug(slug);
+      if (foundSectId) {
+        sectId = foundSectId;
+      } else {
+        console.warn('Используем дефолтный sect_id для slug:', slug);
+      }
+    }
+
+    const formData = new FormData();
+    formData.append('comp', 'catsections');
+    formData.append('sect_id', sectId);
+    formData.append('section_type', 'Нижний тег');
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      console.error('Ошибка при получении нижних тегов:', response.status);
+      return [];
+    }
+
+    const data = await response.json();
+    return data.sections || [];
+  } catch (error) {
+    console.error('Ошибка при получении нижних тегов:', error);
+    return [];
+  }
 }

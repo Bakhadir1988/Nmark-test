@@ -2,3 +2,5 @@ export { ProductListWidget } from './product-list-widget/ui';
 export { FilterWidget } from './filter-widget/ui';
 export { PaginationWidget } from './pagination-widget/ui';
 export { FaqWidget } from './faq-widget/ui';
+export { TopTagsWidget } from './top-tags-widget/ui';
+export { BottomTagsWidget } from './bottom-tags-widget/ui';

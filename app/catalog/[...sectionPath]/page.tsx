@@ -1,6 +1,10 @@
 import { notFound } from 'next/navigation';
 
 import { getCatalogBySlug } from '@/shared/api/catalogApi';
+import {
+  getBottomTagSections,
+  getTopTagSections,
+} from '@/shared/api/sectionsApi';
 
 import { CatalogClient } from '../catalog-client';
 
@@ -18,6 +22,8 @@ export default async function CatalogSectionPage({
   const currentSlug = sectionPath[sectionPath.length - 1];
 
   const data = await getCatalogBySlug(currentSlug);
+  const topTagSections = await getTopTagSections(currentSlug);
+  const bottomTagSections = await getBottomTagSections(currentSlug);
 
   if (!data) {
     notFound();
@@ -25,5 +31,13 @@ export default async function CatalogSectionPage({
 
   const { items, section, pagi } = data;
 
-  return <CatalogClient items={items} section={section} pagi={pagi} />;
+  return (
+    <CatalogClient
+      items={items}
+      section={section}
+      pagi={pagi}
+      topTagSections={topTagSections}
+      bottomTagSections={bottomTagSections}
+    />
+  );
 }

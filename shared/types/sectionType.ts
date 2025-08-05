@@ -18,6 +18,7 @@ export interface Section {
   manual_url: string;
   p_sect_id: string;
   c: string;
+  section_type?: string | null;
   sections?: Section[];
 }
 

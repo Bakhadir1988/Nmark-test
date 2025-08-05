@@ -8,6 +8,7 @@ import {
   CatalogPagination,
   CatalogSectionFaq,
 } from '@/shared/types/catalogType';
+import { Section } from '@/shared/types/sectionType';
 import {
   Breadcrumbs,
   PaginationSkeleton,
@@ -15,10 +16,12 @@ import {
   TitleBlock,
 } from '@/shared/ui';
 import {
+  BottomTagsWidget,
   FaqWidget,
   FilterWidget,
   PaginationWidget,
   ProductListWidget,
+  TopTagsWidget,
 } from '@/widgets';
 
 interface CatalogClientProps {
@@ -30,12 +33,16 @@ interface CatalogClientProps {
     __path?: { item_id: string; title: string; url: string }[];
   };
   pagi: CatalogPagination;
+  topTagSections?: Section[];
+  bottomTagSections?: Section[];
 }
 
 export const CatalogClient: React.FC<CatalogClientProps> = ({
   items: initialItems,
   section,
   pagi: initialPagi,
+  topTagSections = [],
+  bottomTagSections = [],
 }) => {
   const {
     items,
@@ -53,6 +60,9 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
     <main className="container">
       <Breadcrumbs path={section.__path} />
       <TitleBlock title={section.title} />
+
+      {/* Верхние теги */}
+      <TopTagsWidget sections={topTagSections} />
 
       {/* Показываем фильтр только если есть товары */}
       {items.length > 0 && (
@@ -83,6 +93,10 @@ export const CatalogClient: React.FC<CatalogClientProps> = ({
           />
         </>
       )}
+
+      {/* Нижние теги */}
+      <BottomTagsWidget sections={bottomTagSections} />
+
       <FaqWidget items={section.faq} />
     </main>
   );
